@@ -9,6 +9,7 @@ if(len(sys.argv) < 2):
     addkey <username> <key>
     removekey <username>
     changekey <username> <key>"""
+    sys.exit()
 
 first = sys.argv[1]
 con = base.Controller()
