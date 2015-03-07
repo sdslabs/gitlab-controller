@@ -54,7 +54,17 @@ elif (first == 'adduser'):
     username = sys.argv[3]
     password = sys.argv[4]
     name = sys.argv[5]
-    print "Changing key for " + user
+    print "Creating user " + username
 
     con.adduser(email,password, username,name)
+    sys.exit()
+
+elif (first == 'removeuser'):
+    if(len(sys.argv) != 3):
+        print "Incorrect number of parameters"
+        sys.exit(1)
+    username = sys.argv[2]
+    print "Removing user " + username
+
+    con.removeuser(username)
     sys.exit()

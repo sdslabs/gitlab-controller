@@ -92,6 +92,12 @@ class Controller:
 
         return res
 
+    def removeuser(self, username):
+        user = self.finduser(username)
+        res = delete('/users/' + str(user['id']), {'id':user['id']})
+
+        return res
+
 
 
 
