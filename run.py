@@ -15,7 +15,7 @@ if (first == 'addkey'):
     key = sys.argv[2]
     print "Adding key for " + user
 
-    if(con.addsshkey(user, key)
+    con.addsshkey(user, key)
     sys.exit()
 
 elif (first == 'removekey'):
