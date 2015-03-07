@@ -87,6 +87,11 @@ class Controller:
         self.deleteallkeys(username)
         self.addsshkey(username, key)
 
+    def adduser(self, email, password, username, name):
+        res = post('/users', {'email':email, 'password':password, 'username': username, 'name':name})
+
+        return res
+
 
 
 

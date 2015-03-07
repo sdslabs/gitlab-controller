@@ -46,3 +46,15 @@ elif (first == 'changekey'):
 
     con.modifykeys(user, key)
     sys.exit()
+elif (first == 'adduser'):
+    if(len(sys.argv) != 6):
+        print "Incorrect number of parameters"
+        sys.exit(1)
+    email = sys.argv[2]
+    username = sys.argv[3]
+    password = sys.argv[4]
+    name = sys.argv[5]
+    print "Changing key for " + user
+
+    con.adduser(email,password, username,name)
+    sys.exit()
