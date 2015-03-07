@@ -10,6 +10,9 @@ pip install requests
     addkey <username> <key>
     removekey <username>
     changekey <username> <key>
+    adduser <email> <username> <password> <Full Name>
+    removeuser <username>
+
     ####Note:put the sshkey in quotes as shown below
 
 ##Examples

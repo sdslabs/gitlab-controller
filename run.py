@@ -8,7 +8,10 @@ if(len(sys.argv) < 2):
     print """Available commands are:
     addkey <username> <key>
     removekey <username>
-    changekey <username> <key>"""
+    changekey <username> <key>
+    adduser <email> <username> <password> <Full Name>
+    removeuser <username>
+    Note: key and fullname may contain spaces so they have to be kept in quotes"""
     sys.exit()
 
 first = sys.argv[1]
@@ -22,7 +25,7 @@ if (first == 'addkey'):
     key = sys.argv[3]
     print "Adding key for " + user
 
-    con.addsshkey(user, key)
+    print con.addsshkey(user, key)
     sys.exit()
 
 elif (first == 'removekey'):
@@ -33,7 +36,7 @@ elif (first == 'removekey'):
     user = sys.argv[2]
     print "Removing key for " + user
 
-    con.deleteallkeys(user)
+    print con.deleteallkeys(user)
     sys.exit()
 
 elif (first == 'changekey'):
@@ -44,7 +47,7 @@ elif (first == 'changekey'):
     key = sys.argv[3]
     print "Changing key for " + user
 
-    con.modifykeys(user, key)
+    print con.modifykeys(user, key)
     sys.exit()
 elif (first == 'adduser'):
     if(len(sys.argv) != 6):
@@ -56,7 +59,7 @@ elif (first == 'adduser'):
     name = sys.argv[5]
     print "Creating user " + username
 
-    con.adduser(email,password, username,name)
+    print con.adduser(email,password, username,name)
     sys.exit()
 
 elif (first == 'removeuser'):
@@ -66,5 +69,5 @@ elif (first == 'removeuser'):
     username = sys.argv[2]
     print "Removing user " + username
 
-    con.removeuser(username)
+    print con.removeuser(username)
     sys.exit()
