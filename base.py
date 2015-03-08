@@ -61,7 +61,7 @@ class Controller:
     def addsshkey(self, username, sshkey):
         user = self.finduser(username)
 
-        res = post('/users/' + str(user['id']) + '/keys',{'id': user['id'], 'title': 'username', 'key': sshkey})
+        res = post('/users/' + str(user['id']) + '/keys',{'id': user['id'], 'title': username, 'key': sshkey})
         return res
 
     def listsshkeys(self, username):
