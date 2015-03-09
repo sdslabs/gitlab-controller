@@ -18,7 +18,6 @@ if(len(sys.argv) < 2):
 
 first = sys.argv[1]
 con = base.Controller()
-print first
 if (first == 'addkey'):
     if(len(sys.argv) != 4):
         print "Incorrect number of parameters"
