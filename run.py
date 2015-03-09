@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 import sys
 import base
@@ -11,6 +11,8 @@ if(len(sys.argv) < 2):
     changekey <username> <key>
     adduser <email> <username> <password> <Full Name>
     removeuser <username>
+    isadmin <username>
+    isgroupmember <groupname> <username>
     Note: key and fullname may contain spaces so they have to be kept in quotes"""
     sys.exit()
 
@@ -25,7 +27,11 @@ if (first == 'addkey'):
     key = sys.argv[3]
     print "Adding key for " + user
 
-    print con.addsshkey(user, key)
+    r = con.addsshkey(user, key)
+    if (r):
+        print r
+    else:
+        print 'Failed to add key'
     sys.exit()
 
 elif (first == 'removekey'):
@@ -36,7 +42,11 @@ elif (first == 'removekey'):
     user = sys.argv[2]
     print "Removing key for " + user
 
-    print con.deleteallkeys(user)
+    r = con.deleteallkeys(user)
+    if(r):
+        print r
+    else:
+        print "Failed to remove keys"
     sys.exit()
 
 elif (first == 'changekey'):
@@ -47,8 +57,39 @@ elif (first == 'changekey'):
     key = sys.argv[3]
     print "Changing key for " + user
 
-    print con.modifykeys(user, key)
+    r = con.modifykeys(user, key)
+    if(r):
+        print r
+    else:
+        print "Failed to remove keys"
+
     sys.exit()
+
+elif (first == 'isadmin'):
+    if(len(sys.argv) != 3):
+        print "Incorrect number of parameters"
+        sys.exit(1)
+    user = sys.argv[2]
+    if(con.isadmin(user)):
+        print 'yes'
+    else:
+        print 'no'
+    sys.exit()
+
+elif (first == 'isgroupmember'):
+    if(len(sys.argv) != 4):
+        print "Incorrect number of parameters"
+        sys.exit(1)
+    group = sys.argv[2]
+    username = sys.argv[3]
+
+    r = con.isgroupmember(group, username)
+    if(r):
+        print 'yes'
+    else:
+        print 'no'
+
+
 elif (first == 'adduser'):
     if(len(sys.argv) != 6):
         print "Incorrect number of parameters"
@@ -59,7 +100,11 @@ elif (first == 'adduser'):
     name = sys.argv[5]
     print "Creating user " + username
 
-    print con.adduser(email,password, username,name)
+    r = con.adduser(email,password, username,name)
+    if(r):
+        print r
+    else:
+        print "Failed to add user"
     sys.exit()
 
 elif (first == 'removeuser'):
@@ -69,5 +114,9 @@ elif (first == 'removeuser'):
     username = sys.argv[2]
     print "Removing user " + username
 
-    print con.removeuser(username)
+    r = con.removeuser(username)
+    if(r):
+        print r
+    else:
+        print "Failed to remove user"
     sys.exit()

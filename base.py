@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 import conf
 import requests
 
@@ -47,7 +47,7 @@ class Controller:
         if hasattr(self, 'userlist'):
             return self.userlist
 
-        self.userlist = get('/users')
+        self.userlist = get('/users', { 'per_page': 500, 'page':1})
         return self.userlist
 
     def finduser(self, username):
@@ -56,16 +56,21 @@ class Controller:
         for user in userlist:
             if (user['username'] == username):
                 return user
-        return -1
+        return False
 
     def addsshkey(self, username, sshkey):
         user = self.finduser(username)
+        if (not user):
+            return False
 
         res = post('/users/' + str(user['id']) + '/keys',{'id': user['id'], 'title': username, 'key': sshkey})
         return res
 
     def listsshkeys(self, username):
         user = self.finduser(username)
+        if (not user):
+            return False
+
 
         res = get('/users/' + str(user['id']) + '/keys',{'uid': user['id']})
         return res
@@ -78,10 +83,12 @@ class Controller:
     def deleteallkeys(self, username):
         keylist = self.listsshkeys(username)
         user = self.finduser(username)
+        if (not user):
+            return False
+
 
         for key in keylist:
             self.deletekey(user['id'], key['id'])
-
 
     def modifykeys(self, username, key):
         self.deleteallkeys(username)
@@ -94,9 +101,40 @@ class Controller:
 
     def removeuser(self, username):
         user = self.finduser(username)
+        if (not user):
+            return False
+
         res = delete('/users/' + str(user['id']), {'id':user['id']})
 
         return res
+
+    def isadmin(self, username):
+        user = self.finduser(username)
+        if (not user):
+            return False
+
+        return user['is_admin']
+
+    def getgroup(self, groupname):
+        groupslist = get('/groups', {'search':groupname})
+        for g in groupslist:
+            if ( g['name'] == groupname):
+                return g
+
+        return False
+
+
+    def isgroupmember(self, groupname, username):
+        group = self.getgroup(groupname)
+        if (not group):
+            return False
+        members = get('/groups/' + str(group['id']) + '/members', {'per_page':500})
+        for user in members:
+            if (user['username'] == username):
+                return True
+        return False
+
+
 
 
 
