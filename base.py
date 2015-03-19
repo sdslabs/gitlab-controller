@@ -50,6 +50,15 @@ class Controller:
         self.userlist = get('/users', { 'per_page': 500, 'page':1})
         return self.userlist
 
+    def finduserbyname(self, name):
+        userlist = self.getuserlist()
+
+        for user in userlist:
+            if (user['name'].lower() == name.lower()):
+                return user
+        return False
+
+
     def finduser(self, username):
         userlist = self.getuserlist()
 
