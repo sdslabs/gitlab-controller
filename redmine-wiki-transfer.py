@@ -69,6 +69,14 @@ def createwiki(project, title, body):
     print r.status_code
     return r.text
 
+def deletewiki(project, title, token):
+    body = {'_method':'delete','authenticity_token':token}
+    headers = {'Pragma': 'no-cache','Origin': 'https://gitlab.sdslabs.co.in', 'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.8', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36', 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8', 'Cache-Control': 'no-cache', 'Referer':
+    'https://gitlab.sdslabs.co.in/sdslabs/' + project + '/wikis/' + title + '/edit', 'Cookie': 'default_view=%23tab-activity; sds_login=a6501875a8be8a49b04afc28da2743b0; default_view=%23tab-activity; request_method=GET; _gitlab_session=' + gitlab_cookie, 'Connection': 'keep-alive' }
+    r = requests.post('https://gitlab.sdslabs.co.in/sdslabs/'+ project + '/wikis/' + title, headers = headers, data = body)
+    print r.status_code
+    return r
+
 
 for pro in projects:
     print pro['name']
@@ -89,6 +97,9 @@ for pro in projects:
     for wiki in reversed(wikies_list):
         wiki_details = redget('/projects/' + pname + '/wiki/' + wiki['title'] + '.json')['wiki_page']
         print wiki_details
+        if ( wiki_details['title'].lower() == 'wiki'):
+            wiki_details['title'] = 'home'
+
         newwiki= {}
         newwiki['project'] = pro['name']
         newwiki['title'] = wiki_details['title']
