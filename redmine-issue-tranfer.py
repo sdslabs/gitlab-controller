@@ -95,7 +95,7 @@ for pro in projects:
 
     print len(issues)
 
-    for issue in issues:
+    for issue in reversed(issues):
         newissue = {}
         newissue['id'] = pro['id']
         newissue['title'] = issue['subject']
