@@ -71,9 +71,9 @@ elif (first == 'isadmin'):
         sys.exit(1)
     user = sys.argv[2]
     if(con.isadmin(user)):
-        print 'yes'
+        sys.stdout.write('yes')
     else:
-        print 'no'
+        sys.stdout.write('no')
     sys.exit()
 
 elif (first == 'isgroupmember'):
@@ -85,10 +85,9 @@ elif (first == 'isgroupmember'):
 
     r = con.isgroupmember(group, username)
     if(r):
-        print 'yes'
+        sys.stdout.write('yes')
     else:
-        print 'no'
-
+        sys.stdout.write('no')
 
 elif (first == 'adduser'):
     if(len(sys.argv) != 6):
