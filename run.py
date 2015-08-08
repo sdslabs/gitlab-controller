@@ -45,7 +45,7 @@ elif (first == 'removekey'):
     if(r == False):
         print "Failed to remove keys"
     else:
-        print r
+        print "Successfull"
     sys.exit()
 
 elif (first == 'changekey'):
