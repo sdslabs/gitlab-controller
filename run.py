@@ -42,10 +42,10 @@ elif (first == 'removekey'):
     print "Removing key for " + user
 
     r = con.deleteallkeys(user)
-    if(r):
-        print r
-    else:
+    if(r == False):
         print "Failed to remove keys"
+    else:
+        print r
     sys.exit()
 
 elif (first == 'changekey'):
